@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medi Hub — Sign Up</title>
+<link rel="icon" type="image/png" href="Medi-Hub2.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #f5f0e8;
+    --warm-white: #fdfaf4;
+    --ink: #1a1714;
+    --muted: #7a7168;
+    --accent: #c8a96e;
+    --border: rgba(26,23,20,0.15);
+  }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    margin-bottom: 50px !important;
+  }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px !important;
+  }
+  
+
+  /* ── Background canvas ── */
+  .bg {
+    background-image:url('Homebg.jpg') !important;
+     background-size: cover !important;
+     opacity: 0.3 !important;
+    position: fixed;
+    inset: -20%;
+    width: 140%;
+    height: 140%;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 30%, #2d2015 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 80% 70%, #1a2535 0%, transparent 60%),
+      radial-gradient(ellipse 100% 100% at 50% 50%, #0e0c0a 0%, transparent 100%);
+    
+    animation: drift1 28s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  .bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 50% 40% at 70% 20%, rgba(200,169,110,0.12) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 60% at 15% 75%, rgba(100,140,200,0.08) 0%, transparent 55%);
+    animation: drift2 22s ease-in-out infinite alternate;
+  }
+
+  .bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.035) 1px, transparent 0);
+    background-size: 32px 32px;
+    opacity: 0.6;
+  }
+
+  /* floating orbs */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.18;
+    pointer-events: none;
+  }
+  .orb-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, #c8a96e, transparent 70%);
+    top: -100px; right: -100px;
+    animation: orbFloat1 35s ease-in-out infinite alternate;
+  }
+  .orb-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, #6488c8, transparent 70%);
+    bottom: -80px; left: -80px;
+    animation: orbFloat2 40s ease-in-out infinite alternate;
+  }
+  .orb-3 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, #c86464, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: orbFloat3 30s ease-in-out infinite alternate;
+    opacity: 0.09;
+  }
+
+  @keyframes drift1 {
+    0%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+    33%  { transform: translate(-3%, 2%) rotate(1deg) scale(1.02); }
+    66%  { transform: translate(2%, -3%) rotate(-0.5deg) scale(0.98); }
+    100% { transform: translate(1%, 1%) rotate(0.8deg) scale(1.01); }
+  }
+  @keyframes drift2 {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(4%, -4%) scale(1.05); }
+    100% { transform: translate(-3%, 3%) scale(0.97); }
+  }
+  @keyframes orbFloat1 {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(-80px, 120px); }
+  }
+  @keyframes orbFloat2 {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(100px, -80px); }
+  }
+  @keyframes orbFloat3 {
+    0%   { transform: translate(-50%, -50%) scale(1); }
+    100% { transform: translate(-50%, -50%) scale(1.6); }
+  }
+
+  /* ── Card ── */
+  .card {
+    position: relative;
+    z-index: 10;
+    width: 420px;
+    
+    background: rgba(253, 250, 244, 0.08);
+    border: 1px solid rgba(245,240,232,0.12);
+    border-radius: 4px;
+    padding: 52px 44px 44px;
+    
+    backdrop-filter: blur(40px) saturate(1.5);
+    -webkit-backdrop-filter: blur(24px) saturate(1.2);
+    box-shadow:
+      0 0 0 1px rgba(200,169,110,0.06),
+      0 24px 80px rgba(0,0,0,0.6),
+      inset 0 1px 0 rgba(255,255,255,0.06);
+    animation: cardIn 0.9s cubic-bezier(0.16,1,0.3,1) both;
+  }
+
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 36px;
+  }
+  .logo-mark {
+    width: 28px; height: 28px;
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-mark::after {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .logo-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--cream);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    font-weight: 300;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .subheading {
+    font-size: 13px;
+    font-weight: 300;
+    color: white;
+    margin-bottom: 32px;
+    letter-spacing: 0.02em;
+  }
+
+  .field {
+    margin-bottom: 16px;
+  }
+  label {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color:white;
+    margin-bottom: 7px;
+  }
+  input {
+    width: 100%;
+    background: rgba(245,240,232,0.05);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 12px 14px;
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--cream);
+    outline: none;
+    transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+    --webkit-appearance: none;
+  }
+  input::placeholder { color: rgba(245,240,232,0.2); }
+  input:focus {
+    border-color: rgba(200,169,110,0.5);
+    background: rgba(245,240,232,0.08);
+    box-shadow: 0 0 0 3px rgba(200,169,110,0.08);
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .btn {
+    width: 100%;
+    margin-top: 24px;
+    padding: 14px;
+    background: var(--accent);
+    border: none;
+    border-radius: 3px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0);
+    transition: background 0.2s;
+  }
+  .btn:hover { opacity: 0.9; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(200,169,110,0.25); }
+  .btn:active { transform: translateY(0); }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0 20px;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .divider span {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  .social {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .social-btn {
+    padding: 11px;
+    background: rgba(245,240,232,0.04);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(245,240,232,0.55);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    letter-spacing: 0.04em;
+  }
+  .social-btn:hover {
+    background: rgba(245,240,232,0.08);
+    border-color: rgba(245,240,232,0.2);
+    color: var(--cream);
+  }
+  .social-btn svg { flex-shrink: 0; }
+
+  .signin {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--muted);
+    font-weight: 300;
+  }
+  .signin a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 400;
+  }
+  .signin a:hover { text-decoration: underline; }
+
+  /* ── stagger animations ── */
+  .card > * {
+    animation: fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) both;
+  }
+  .logo            { animation-delay: 0.15s; }
+  .heading         { animation-delay: 0.25s; }
+  .subheading      { animation-delay: 0.30s; }
+  .field           { animation-delay: 0.35s; }
+  .row             { animation-delay: 0.38s; }
+  .btn             { animation-delay: 0.45s; }
+  .divider         { animation-delay: 0.50s; }
+  .social          { animation-delay: 0.55s; }
+  .signin          { animation-delay: 0.60s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<div class="card">
+  <div class="logo">
+    <!-- <div class="logo-mark"></div> -->
+    <span class="logo-name"></span>
+  </div>
+
+  <h1 class="heading">Create your<br>account</h1>
+  <p class="subheading">Begin your journey with us today.</p>
+
+
+
+<form action="/signup" method="POST">
+  <div class="field">
+    <label>First name</label>
+    <input type="text" name="firstname" placeholder="Jane" required>
+  </div>
+
+  <div class="field">
+    <label>Last name</label>
+    <input type="text" name="lastname" placeholder="Doe" required>
+  </div>
+
+  <div class="field">
+    <label>Email address</label>
+    <input type="email" name="email" placeholder="jane.doe@example.com" required>
+  </div>
+
+  <div class="field">
+    <label>Password</label>
+    <input type="password" placeholder="Minimum 8 Charcter" name="password" required>
+  </div>
+
+  <button type="submit" class="btn">Create Account</button>
+</form>
+
+
+
+
+
+  <!-- <div class="divider"><span>or continue with</span></div>
+
+  <div class="social">
+    <button class="social-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+      </svg>
+      Google
+    </button>
+    <button class="social-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(245,240,232,0.55)">
+        <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+      </svg>
+      GitHub
+    </button>
+  </div> -->
+
+  <p class="signin">Already have an account? <a href="/">Sign in</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+node_modules/
+easyocr_env/
+uploads/
+.env

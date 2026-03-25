@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" href="Medi-Hub2.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediCare — Your Health Companion</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<%- include('navbar') %>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">✦ Smart Health Management</div>
+    <h1>Manage your <em>prescriptions</em> with ease</h1>
+    <p>Keep all your medical prescriptions in one place, set smart reminders, and never miss a dose again. Your health companion, always with you.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="openModal()">Upload Prescription</button>
+      <button class="btn-ghost">View My Records</button>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#e8f8f2">📋</div>
+      <span class="num">0</span>
+      <span class="label">Active Prescriptions</span>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#fef3c7">⏰</div>
+      <span class="num">0</span>
+      <span class="label">Today's Reminders</span>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#ede9fe">✅</div>
+      <span class="num">98%</span>
+      <span class="label">Adherence Rate</span>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background:#fce7f3">🏥</div>
+      <span class="num">0</span>
+      <span class="label">Doctors Added</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="section-label">What we offer</div>
+  <div class="section-title">Everything you need, nothing you don't</div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#e8f8f2">📤</div>
+      <h3>Easy Upload</h3>
+      <p>Upload prescription images or PDFs in seconds. Our system extracts and organizes the information automatically.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#fef3c7">🔔</div>
+      <h3>Smart Reminders</h3>
+      <p>Get timely notifications for each medication. Customize frequency, dosage, and timing to fit your schedule.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#ede9fe">📊</div>
+      <h3>Health Insights</h3>
+      <p>Track your medication adherence over time and share comprehensive reports with your healthcare provider.</p>
+    </div>
+  </div>
+</section>
+
+<!-- UPLOAD MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeOnOverlay(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">Upload Prescription</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+
+    <div class="drop-zone" id="dropZone">
+      <input type="file" accept=".pdf,.jpg,.jpeg,.png" onchange="handleFile(event)">
+      <div class="drop-icon">📄</div>
+      <h3>Drop your file here, or <span class="highlight">browse</span></h3>
+      <p>Supports PDF, JPG, and PNG formats</p>
+      <div class="file-types">
+        <span class="file-type-badge">PDF</span>
+        <span class="file-type-badge">JPG</span>
+        <span class="file-type-badge">PNG</span>
+      </div>
+    </div>
+
+    <div id="file-preview" style="display:none; margin-top:14px; padding:12px 16px; background:var(--mint); border-radius:10px; font-size:0.85rem; color:var(--teal-deep); font-weight:500;"></div>
+
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn-upload-confirm" onclick="submitUpload()">Upload & Save</button>
+    </div>
+  </div>
+</div>
+
+<script src="/app.js"></script>  
+
+</body>
+</html>

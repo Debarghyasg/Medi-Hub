@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="Medi-Hub2.png">
+    <title>Verify Prescription - MediHub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: #f0ede6;
+            min-height: 100vh;
+            color: #1a2e2a;
+        }
+
+        /* ── Navbar ── */
+        nav {
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+            height: 64px;
+            border-bottom: 1px solid #e8e4dc;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a2e2a;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5e58;
+            font-size: 0.95rem;
+            padding: 6px 16px;
+            border-radius: 20px;
+            transition: background 0.2s;
+        }
+
+        .nav-links a.active {
+            background: #d4f0e8;
+            color: #1a7a5e;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover:not(.active) {
+            background: #f0ede6;
+        }
+
+        .btn-upload-nav {
+            background: #1a7a5e;
+            color: #ffffff !important;
+            padding: 10px 20px !important;
+            border-radius: 8px !important;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-upload-nav:hover {
+            background: #155f4a !important;
+        }
+
+        /* ── Page layout ── */
+        .page-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 60px 24px;
+            min-height: calc(100vh - 64px);
+        }
+
+        /* ── Card ── */
+        .confirm-container {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 48px 52px;
+            width: 100%;
+            max-width: 560px;
+            box-shadow: 0 4px 24px rgba(26, 42, 38, 0.08);
+        }
+
+        /* ── Breadcrumb ── */
+        .breadcrumb {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #d4f0e8;
+            color: #1a7a5e;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb::before {
+            content: '✦';
+            font-size: 0.65rem;
+        }
+
+        /* ── Heading ── */
+        .confirm-container h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #1a2e2a;
+            line-height: 1.25;
+            margin-bottom: 6px;
+        }
+
+        .confirm-container h1 span {
+            color: #1a7a5e;
+            font-style: italic;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #6b7e78;
+            margin-bottom: 36px;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            border: none;
+            border-top: 1px solid #e8e4dc;
+            margin-bottom: 32px;
+        }
+
+        /* ── Fields ── */
+        .field {
+            margin-bottom: 22px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #4a5e58;
+            letter-spacing: 0.03em;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid #dde8e4;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            color: #1a2e2a;
+            background: #f8faf9;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+
+        .field input:focus {
+            border-color: #1a7a5e;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(26, 122, 94, 0.12);
+        }
+
+        .field input::placeholder {
+            color: #a0b0aa;
+        }
+
+        /* ── Medicines table ── */
+        .medicines-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #4a5e58;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .medicine-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .medicine-row input {
+            flex: 1;
+            padding: 11px 14px;
+            border: 1.5px solid #dde8e4;
+            border-radius: 10px;
+            font-size: 0.92rem;
+            color: #1a2e2a;
+            background: #f8faf9;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .medicine-row input:focus {
+            border-color: #1a7a5e;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(26, 122, 94, 0.12);
+        }
+
+        /* ── Actions ── */
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 36px;
+        }
+
+        .btn-primary {
+            flex: 1;
+            background: #1a7a5e;
+            color: #ffffff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #155f4a;
+            box-shadow: 0 4px 16px rgba(26, 122, 94, 0.28);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-cancel {
+            color: #4a5e58;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 14px 20px;
+            border-radius: 10px;
+            border: 1.5px solid #dde8e4;
+            background: transparent;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-cancel:hover {
+            background: #f0ede6;
+            border-color: #c8c0b4;
+        }
+
+        /* ── Info badge ── */
+        .info-badge {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: #eaf7f2;
+            border: 1px solid #b6e8d4;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 28px;
+            font-size: 0.85rem;
+            color: #1a7a5e;
+            line-height: 1.5;
+        }
+
+        .info-badge svg {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="/home" class="logo">
+            <svg class="logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="36" height="36" rx="10" fill="#d4f0e8"/>
+                <path d="M18 8v20M8 18h20" stroke="#1a7a5e" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="18" cy="18" r="4" fill="#1a7a5e" opacity="0.3"/>
+            </svg>
+            MediHub
+        </a>
+
+        <div class="nav-links">
+            <a href="/home" class="active">Home</a>
+            <a href="/prescriptions">Your Prescriptions</a>
+            <a href="/reminder">Reminder</a>
+        </div>
+
+        <a href="/upload" class="nav-links btn-upload-nav">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="17 8 12 3 7 8"/>
+                <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            Upload Prescription
+        </a>
+    </nav>
+
+    <!-- Main -->
+    <div class="page-wrapper">
+        <section class="confirm-container">
+
+            <div class="breadcrumb">Smart Health Management</div>
+
+            <h1>Verify <span>Extracted</span> Information</h1>
+            <p class="subtitle">Review the details pulled from your prescription and correct anything if needed.</p>
+
+            <hr class="divider">
+
+            <div class="info-badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                Please verify the auto-filled fields below. Accurate information ensures better reminders and health tracking.
+            </div>
+
+            <form action="/save-to-db" method="POST">
+                <input type="hidden" name="id" value="<%= result.id %>">
+
+                <div class="field">
+                    <label>Doctor Name</label>
+                    <input type="text" name="doctor_name" value="<%= result.doctor_name || '' %>" placeholder="e.g. Dr. Anjali Sharma">
+                </div>
+
+                <div class="field">
+                    <label>Next Visit Date</label>
+                    <input type="text" name="next_visit" value="<%= result.next_visit || '' %>" placeholder="e.g. 10 April 2025">
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                        Finalize &amp; Save
+                    </button>
+                    <a href="/home" class="btn-cancel">Cancel</a>
+                </div>
+            </form>
+
+        </section>
+    </div>
+
+</body>
+</html>
+```
