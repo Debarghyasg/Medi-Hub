@@ -450,6 +450,7 @@
     border-color: var(--teal);
   }
 
+
   .feature-icon {
     width: 48px;
     height: 48px;
@@ -491,3 +492,7 @@
   /* Page fade in */
   body { animation: fadeIn 0.4s ease; }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  
+  
+  
+

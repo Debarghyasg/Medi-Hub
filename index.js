@@ -85,9 +85,9 @@ app.get('/signup', (req, res) => {
 });
 
 // GET /home  (protected)
-app.get('/home', isAuth, (req, res) => {
-    res.render('index.ejs', { user: req.session.user });
-});
+// app.get('/home', isAuth, (req, res) => {
+//     res.render('index.ejs', { user: req.session.user });
+// });
 
 
 
@@ -284,6 +284,34 @@ app.post('/delete-record/:id', isAuth, async (req, res) => {
         res.redirect('/record');
     } catch (err) {
         res.status(500).send("Could not delete record.");
+    }
+});
+
+// This replaces both line 101 and line 275
+app.get('/home', isAuth, async (req, res) => {
+    try {
+        // 1. Get the count of prescriptions for the current user
+        const result = await client.query(
+            'SELECT COUNT(*) FROM prescriptions WHERE user_id = $1',
+            [req.session.user.id]
+        );
+
+        // Convert the SQL string result to a number
+        const count = parseInt(result.rows[0].count);
+
+        // 2. Render index.ejs with ALL the data needed
+        res.render('index.ejs', { 
+            user: req.session.user,      // Keeps your "Welcome, Name" functionality
+            prescriptionCount: count    // Adds your "Active Prescriptions" count
+        });
+
+    } catch (err) {
+        console.error("Dashboard error:", err);
+        // Fallback so the page still loads even if the database fails
+        res.render('index.ejs', { 
+            user: req.session.user, 
+            prescriptionCount: 0 
+        });
     }
 });
 
