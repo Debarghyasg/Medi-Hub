@@ -21,6 +21,14 @@ Database: PostgreSQL (Relational data for users and prescriptions)
 
 Frontend: EJS (Embedded JavaScript Templates), CSS3
 
+Core Model Training Language: Python
+
+AIML: 1.Image processing: OpenCV, NumPy
+      2.Region Detection: CNN (MobileNetV2 via TensorFlow)
+      3.Text Extraction: EasyOCR (PyTorch based)
+      4.Field Classification: KNN (Scikit-Learn)
+      5.API / Server: Flask
+
 Automation: Node-Cron (Scheduled tasks), Nodemailer (Email engine)
 
 Storage: Multer (Local file handling/uploads)
