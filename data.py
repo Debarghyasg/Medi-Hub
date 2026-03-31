@@ -806,6 +806,7 @@ def ocr():
     except Exception as e:
         log.error(f"OCR route error: {e}", exc_info=True)
         return jsonify({"error": str(e)}), 500
+    
 
 
 @app.route('/train/cnn', methods=['POST'])
