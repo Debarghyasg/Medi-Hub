@@ -36,6 +36,7 @@ Storage: Multer (Local file handling/uploads)
 Security: Bcrypt (Hashing), Express-Session (Authentication)
 
 💡 The Problem It Solves
+
 Managing long-term health often involves multiple doctors and a paper trail of prescriptions that are easily lost or forgotten. MediHub digitizes this process, providing a centralized "Source of Truth" for medical history and using proactive notifications to improve patient adherence to follow-up visits.
 
 
